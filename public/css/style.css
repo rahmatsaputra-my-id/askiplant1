@@ -1,0 +1,310 @@
+@import url('https://fonts.googleapis.com/css2?family=Quicksand&display=swap');
+
+body{
+    font-family: 'Quicksand', sans-serif;
+    background-color: #e6e6e691;;
+    color: black;
+}
+a.border{
+    margin-left: -50px;
+}
+.border{
+    margin-right: 2px;
+    border: 1px rgba(158, 158, 158, 0.808);
+    border-radius: 12px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+.border:hover{
+    background-color: rgba(43, 157, 250, 0.582);
+}
+.statusclosed{
+    background-image: url('img/closed.png');
+}
+.bordernama{
+    margin-left: 5px;
+    margin-right: 5px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+.bordertotal{
+    border-radius: 12px;
+    margin-left: 5px;
+    margin-right: 5px;
+    padding-top: 3px;
+    padding-bottom: 3px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+#container {
+    height: 400px;
+  }
+
+.contents{
+    margin: 20px;
+}
+
+.card-primary.card-outline {
+    border-top: 5px solid #007bff;
+    border-radius: 20px;
+}
+.card-success.card-outline {
+    border-top: 5px solid #00ff4c;
+    border-radius: 20px;
+}
+.card-red.card-outline {
+    border-top: 5px solid #ff0022;
+    border-radius: 20px;
+}
+.card-warning.card-outline {
+    border-top: 5px solid #ff7b00;
+    border-radius: 20px;
+}
+
+/* Style the button that is used to open and close the collapsible content */
+.collapsible {
+    background-color: #eee;
+    color: #444;
+    cursor: pointer;
+    padding: 18px;
+    width: 100%;
+    border: none;
+    text-align: left;
+    outline: none;
+    font-size: 15px;
+  }
+
+  /* Add a background color to the button if it is clicked on (add the .active class with JS), and when you move the mouse over it (hover) */
+  .active, .collapsible:hover {
+    background-color: #ccc;
+  }
+
+  /* Style the collapsible content. Note: hidden by default */
+  .content {
+    padding: 0 18px;
+    display: none;
+    overflow: hidden;
+    background-color: #f1f1f1;
+  }
+
+/* The sidebar menu */
+.sidebar {
+    height: 100%; /* 100% Full-height */
+    width: 0; /* 0 width - change this with JavaScript */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Stay on top */
+    top: 0;
+    left: 0;
+    background-color: #111; /* Black*/
+    overflow-x: hidden; /* Disable horizontal scroll */
+    padding-top: 60px; /* Place content 60px from the top */
+    transition: 0.5s; /* 0.5 second transition effect to slide in the sidebar */
+  }
+
+  /* The sidebar links */
+  .sidebar a {
+    padding: 8px 8px 8px 32px;
+    text-decoration: none;
+    font-size: 14px;
+    color: #000000;
+    display: block;
+    transition: 0.3s;
+  }
+
+  /* When you mouse over the navigation links, change their color */
+  .sidebar a:hover {
+    color: #ffffff;
+  }
+
+  /* Position and style the close button (top right corner) */
+  .sidebar .closebtn {
+    position: absolute;
+    top: 0;
+    right: 25px;
+    font-size: 36px;
+    margin-left: 10px;
+  }
+
+  /* The button used to open the sidebar */
+  .openbtn {
+    font-size: 12px;
+    cursor: pointer;
+    color: rgb(0, 0, 0);
+    border: none;
+  }
+
+  /* .openbtn:hover {
+    background-color: #444;
+  } */
+
+  /* Style page content - use this if you want to push the page content to the right when you open the side navigation */
+  #main {
+    transition: margin-left .5s; /* If you want a transition effect */
+  }
+
+  /* On smaller screens, where height is less than 450px, change the style of the sidenav (less padding and a smaller font size) */
+  @media screen and (max-height: 450px) {
+    .sidebar {padding-top: 15px;}
+    .sidebar a {font-size: 12px;}
+  }
+
+  .containers{
+    padding-right:10px;
+    padding-left:10px;
+    display: flex;
+  }
+
+  #navbar {
+    height: 64px;
+}
+
+.header-link {
+    color: #8786A4;
+}
+
+.sub-banner-title {
+    color: #212344 !important;
+    font-family: basefontSemiBold !important;
+}
+
+.tech-stack-title {
+    color: #212344;
+}
+
+.demo {
+    height: 100%;
+    display: flex;
+}
+
+.foot-item {
+    color: #686980;
+    font-weight: 300 !important;
+}
+
+.list-inline-item>a>p {
+    padding-top: 10px;
+    line-height: 130%;
+}
+
+.card-link {
+    text-transform: uppercase;
+}
+
+.strike {
+    display: block;
+    text-align: center;
+    overflow: hidden;
+    white-space: nowrap;
+}
+
+.strike>span {
+    position: relative;
+    display: inline-block;
+}
+
+.strike>span:before,
+.strike>span:after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    width: 9999px;
+    height: 1px;
+    background: #E2E2E2;
+}
+
+.strike>span:before {
+    right: 100%;
+    margin-right: 15px;
+}
+
+.strike>span:after {
+    left: 100%;
+    margin-left: 15px;
+}
+
+.info-p {
+    color: #5648D4 !important;
+    font-family: basefontSemiBold !important;
+}
+
+.techstack-link {
+    text-decoration: none;
+    color: #434456;
+}
+
+.techstack-link:hover {
+    text-decoration: none;
+}
+
+.feature-icon {
+    height: 35px;
+    width: 35px;
+    border: 0.68px solid rgba(104, 105, 128, 0.22);
+    border-radius: 3.7px;
+    box-shadow: 0 9px 20px 0 rgba(62, 57, 107, 0.04);
+}
+
+.feature-icon>i {
+    width: 100%;
+    font-size: 22px;
+}
+
+.card-title {
+    padding-top: 5px;
+}
+
+.techstack-logo:hover {
+    -webkit-transition: translateY(-4px);
+    transform: translateY(-4px);
+    box-shadow: 0 10px 14px 0 rgba(33, 35, 68, .05) !important;
+}
+
+i {
+    color: #8786A4 !important;
+}
+
+.fc_next {
+    position: relative;
+    top: 2px;
+}
+
+.badge {
+    vertical-align: super;
+    background-color: rgba(33,35,68,.03);
+    font-weight: 600;
+    font-size: 13px;
+    line-height: 13px;
+    font-family: baseFontSemiBold;
+    margin-left: 3px;
+    border-bottom: 1px solid rgba(62, 57, 107, 0.04);
+    border-bottom-right-radius: 2px;
+    border-bottom-left-radius: 2px;
+    border-bottom-width: 1px;
+    color: #8786a4;
+}
+
+@media (min-width:768px) {
+    .navbar {
+        padding: .5rem
+    }
+}
+
+@media (min-width:992px) {
+    .navbar .navbar-nav .nav-item {
+        margin-right: 1rem
+    }
+}
+
+@media (min-width:1200px) {
+    .navbar {
+        padding: .6rem 4%
+    }
+
+    .navbar .navbar-nav .nav-item {
+        margin-right: 1.4rem
+    }
+}
