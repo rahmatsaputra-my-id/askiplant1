@@ -108,9 +108,16 @@ class PIrejectionController extends Controller
 
             $chart1DataShift = $this->getChart1DataShift($tahun, $bulan, $tanggal);
             $chart1aDataShift = $this->getChart1aDataShift($tahun, $bulan, $tanggal);
+            $rejectionPerTypePartData = $this->getRejectionPerTypePartData($tahun, $bulan);
+            $part_name = $this->getPartName($tahun, $bulan);
+            $rejection_type = $this->getTypeName($tahun, $bulan);
+            // $chart1bDataShift = $this->getChart1bDataShift($tahun, $bulan, $tanggal);
             $data = array(
               'data_chart_1' => $chart1DataShift,
               'data_chart_1a' => $chart1aDataShift,
+              'data_chart_1b' => $rejectionPerTypePartData,
+              'part_name' => $part_name,
+              'rejection_type' => $rejection_type,
               'tahun' => $tahun,
               'bulan' => $bulan,
               'tanggal' => $tanggal

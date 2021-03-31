@@ -3,17 +3,21 @@
 @endsection
 
 <script>
-   function drawChart3e(result) {
-      var rejection_data = result.data_chart_3e
-      var rejection_type = Object.values(result.rejection_type)
+   function drawChart1b(result) {
+      console.log("===>result", result);
+      var rejection_data = result.data_chart_1b;
+      var rejection_type = Object.values(result.rejection_type);
       var rejection_data_arr = Object.keys(rejection_data).map((key) => rejection_data[key]);
-      var part_name = Object.keys(result.data_chart_3e)
-      Highcharts.chart('chart3e', {
+      var part_name = Object.keys(result.data_chart_1b);
+      // console.log("===>rejection_type", rejection_type);
+      // console.log("===>rejection_data_arr", rejection_data_arr);
+      // console.log("===>part_name", part_name);
+      Highcharts.chart('chart1b', {
          chart: {
             type: 'column'
          },
          title: {
-            text: 'Pareto (TOP 10) Rejection Based on Type of NG'
+            text: 'Pareto (TOP 10) Rejection Based on Type of NG Daily'
          },
          xAxis: {
             categories: rejection_type
@@ -61,6 +65,7 @@
             var series = [];
             rejection_data_arr.forEach((item, i) => {
                var graph_data = Object.values(item)
+               console.log(graph_data);
                series.push({
                   showInLegend: false,
                   name: part_name[i],
