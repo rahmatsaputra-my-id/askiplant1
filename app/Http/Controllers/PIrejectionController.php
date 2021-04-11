@@ -11,6 +11,7 @@ use Validator;
 use Auth;
 
 use Illuminate\Support\Arr;
+use Illuminate\Support\Facades\Log;
 
 class PIrejectionController extends Controller
 {
@@ -100,6 +101,7 @@ class PIrejectionController extends Controller
          $tahun = $request->tahun;
          $bulan = $request->bulan;
          $tanggal = $request->tanggal;
+         // $jam = $request->jam;
          if ($tahun == '' || $bulan == '' || $tanggal == '') {
             $data = array(
                'data' => ''
@@ -107,18 +109,22 @@ class PIrejectionController extends Controller
             return $data;
          }
 
+         $shiftName = ["Shift 1", "Shift 2", "Shift 3"];
          $chart1DataShift = $this->getChart1DataShift($tahun, $bulan, $tanggal);
          $chart1aDataShift = $this->getChart1aDataShift($tahun, $bulan, $tanggal);
          $chart1bDataShift = $this->getChart1bDataShift($tahun, $bulan, $tanggal);
-         $rejectionPerTypePartData = $this->getRejectionPerTypePartData($tahun, $bulan);
+         $rejection_per_type_part_data = $this->getRejectionPerTypePartData($tahun, $bulan);
+         // $rejection_per_shift_data = $this->rejectionPerShiftData($tahun, $bulan);
          $part_name = $this->getPartName($tahun, $bulan);
          $rejection_type = $this->getTypeName($tahun, $bulan);
          $data = array(
             'data_chart_1' => $chart1DataShift,
             'data_chart_1a' => $chart1aDataShift,
             'data_chart_1b' => $chart1bDataShift,
-            'rejectionPerTypePartData' => $rejectionPerTypePartData,
+            'rejection_per_type_part_data' => $rejection_per_type_part_data,
+            // 'rejectionPerShiftData' => $rejection_per_shift_data,
             'part_name' => $part_name,
+            'shift_name' => $shiftName,
             'rejection_type' => $rejection_type,
             'tahun' => $tahun,
             'bulan' => $bulan,
@@ -359,6 +365,146 @@ class PIrejectionController extends Controller
          $result[$key] = $rejectionByParts;
       }
       return $result;
+   }
+
+   public function generateRejectionPerShiftDayArray($query)
+   {
+      $result = [];
+      $rejection_data_arr = [
+         "Shift1" => [
+            "Trial Istirahat" => 13,
+            "Flow Mark" => 29,
+            "Gating" => 3,
+            "Short Shot" => 10,
+            "Trial Produksi" => 30,
+            "Trial Engineering" => 3,
+            "Sink Mark" => 27,
+            "Silver Streaks" => 31,
+            "Cracking" => 63,
+         ],
+         "Shift2" => [
+            "Trial Istirahat" => 22,
+            "Flow Mark" => 9,
+            "Gating" => 7,
+            "Short Shot" => 15,
+            "Trial Produksi" => 15,
+            "Trial Engineering" => 7,
+            "Sink Mark" => 4,
+            "Silver Streaks" => 34,
+            "Cracking" => 20,
+         ],
+         "Shift3" => [
+            "Trial Istirahat" => 1,
+            "Flow Mark" => 6,
+            "Gating" => 35,
+            "Short Shot" => 12,
+            "Trial Produksi" => 9,
+            "Trial Engineering" => 7,
+            "Sink Mark" => 2,
+            "Silver Streaks" => 4,
+            "Cracking" => 5,
+         ]
+      ];
+
+      // $RejectionType = array_column($query, 'RejectionType');
+      // $jam = array_column($query, 'jam');
+      // $combine = array_combine($RejectionType, $jam);
+
+      // $multiple_column = $this->colsFromArray($query, array("RejectionType", "jam"));
+
+      // $rejection_data_arr = [
+      //    "Shift1" => [
+      //       "Trial Istirahat" => 13,
+      //    ],
+      //    "Shift2" => [
+      //       "Trial Istirahat" => 22,
+      //    ],
+      //    "Shift3" => [
+      //       "Trial Istirahat" => 1,
+      //    ]
+      // ];
+
+      // $part_name = array_unique(Arr::pluck($query, 'NamaPart'));
+      // $rejection_type = array_unique(Arr::pluck($query, 'RejectionType'));
+      // $jam = array_unique(Arr::pluck($query, 'jam'));
+
+
+      // $count_duplicate_jam = array_count_values($jam);
+
+
+      // foreach ($query as $data) {
+      //    $rejection_data[$data->NamaPart][$data->RejectionType] = $data->sum;
+      // }
+
+      // foreach ($query as $data) {
+      //    $rejection_data[$data->RejectionType] = $data->jam;
+      // }
+
+      // $rejectionType = [$data->RejectionType];
+      // $rejectionNamaPart = [$data->NamaPart];
+
+
+
+
+      // foreach ($rejection_data as $key => $data) {
+      //    $rejectionByParts = [];
+      //    $rejectionByShift = [];
+      //    $rejectionShift1 = [];
+      //    $rejectionShift2 = [];
+      //    $rejectionShift3 = [];
+      //    foreach ($rejection_type as $part) {
+      //       // if (array_key_exists($part, $data)) {
+      //       //    array_push($rejectionByParts, (int)$data[$part]);
+      //       //    continue;
+      //       // } else {
+      //       //    array_push($rejectionByParts, 0);
+      //       //    continue;
+      //       // }
+
+      //       if (array_key_exists($part, $data)) {
+      //          // array_push($rejectionByParts, (int)$data[$part]);
+      //          // continue;
+      //          if($rejectionByShift >= 0 && $rejectionByShift <=12){
+      //             array_push($rejectionByParts, (int)$data[$part]);
+      //             continue;
+      //          }
+      //          if( $rejectionByShift >= 13 && $rejectionByShift <= 17){
+      //             array_push($rejectionByParts, (int)$data[$part]);
+      //             continue;
+      //          }
+      //          if($rejectionByShift >= 18 && $rejectionByShift <= 23){
+      //             array_push($rejectionByParts, (int)$data[$part]);
+      //             continue;
+      //          } 
+      //       } else {
+      //          array_push($rejectionByParts, 0);
+      //          continue;
+      //       }
+
+      //    }
+      //    $result[$key] = $rejectionByParts;
+      // }
+      // return $test_combine;
+
+      // foreach ($rejection_data as $key => $data) {
+      //    $rejectionByParts = [];
+      //    $rejectionByShift = [];
+      //    $rejectionShift1 = [];
+      //    $rejectionShift2 = [];
+      //    $rejectionShift3 = [];
+      //    foreach ($rejection_type as $part) {
+      //       // if (array_key_exists($part, $data)) {
+      //       //    array_push($rejectionByParts, (int)$data[$part]);
+      //       //    continue;
+      //       // } else {
+      //       //    array_push($rejectionByParts, 0);
+      //       //    continue;
+      //       // }
+      //    }
+      //    $result[$key] = $rejectionByParts;
+      // }
+      // return $result;
+      return $rejection_data_arr;
    }
 
    public function getTableData(Request $request)
@@ -659,24 +805,51 @@ class PIrejectionController extends Controller
 
    public function getChart1bDataShift($tahun, $bulan, $tanggal)
    {
-      $query = DB::select('select *
-        from (select count("RejectionType") as rejectbulantahun1, "RejectionType",
-        EXTRACT(DAY FROM "InputDate" + INTERVAL ' . "'1 hours'" . ') as tgl,
-        EXTRACT(MONTH FROM "InputDate" + INTERVAL ' . "'1 hours'" . ') as bulan,
-        EXTRACT(YEAR FROM "InputDate" + INTERVAL ' . "'1 hours'" . ') as tahun from "Pi_Rejection" where
-        EXTRACT(YEAR FROM "InputDate" + INTERVAL ' . "'1 hours'" . ') = ' . $tahun . ' and
-        EXTRACT(MONTH FROM "InputDate" + INTERVAL ' . "'1 hours'" . ') = ' . $bulan . ' and
-        EXTRACT(DAY FROM "InputDate" + INTERVAL ' . "'1 hours'" . ') = ' . $tanggal . '
-        group by "RejectionType",tgl, bulan, tahun order by rejectbulantahun1 desc limit 10) as t1
-		  left join (select count("RejectionType") as sum, "RejectionType",
-        EXTRACT(MONTH FROM "InputDate" + INTERVAL ' . "'1 hours'" . ') as bulan,
-        EXTRACT(DAY FROM "InputDate" + INTERVAL ' . "'1 hours'" . ') as tgl,
-        EXTRACT(YEAR FROM "InputDate" + INTERVAL ' . "'1 hours'" . ') as tahun from "Pi_Rejection" where
-        EXTRACT(YEAR FROM "InputDate" + INTERVAL ' . "'1 hours'" . ') = ' . $tahun . ' and
-        EXTRACT(MONTH FROM "InputDate" + INTERVAL ' . "'1 hours'" . ') = ' . $bulan . ' and
-        EXTRACT(DAY FROM "InputDate" + INTERVAL ' . "'1 hours'" . ') = ' . $tanggal . '
-        group by "RejectionType",tgl, bulan, tahun) as t2 on "t1"."RejectionType" = "t2"."RejectionType" order by rejectbulantahun1 desc');
+      // $query = DB::select('select *
+      //   from (select count("RejectionType") as rejectbulantahun1, "RejectionType",
+      //   EXTRACT(HOUR FROM "InputDate" + INTERVAL ' . "'1 hours'" . ') as jam,
+      //   EXTRACT(DAY FROM "InputDate" + INTERVAL ' . "'1 hours'" . ') as tgl,
+      //   EXTRACT(MONTH FROM "InputDate" + INTERVAL ' . "'1 hours'" . ') as bulan,
+      //   EXTRACT(YEAR FROM "InputDate" + INTERVAL ' . "'1 hours'" . ') as tahun from "Pi_Rejection" where
+      //   EXTRACT(YEAR FROM "InputDate" + INTERVAL ' . "'1 hours'" . ') = ' . $tahun . ' and
+      //   EXTRACT(MONTH FROM "InputDate" + INTERVAL ' . "'1 hours'" . ') = ' . $bulan . ' and
+      //   EXTRACT(DAY FROM "InputDate" + INTERVAL ' . "'1 hours'" . ') = ' . $tanggal . '
+      //   group by "RejectionType", jam, tgl, bulan, tahun order by rejectbulantahun1 desc limit 10) as t1
+      //   left join (select count("RejectionType") as sum, "RejectionType",
+      //   EXTRACT(HOUR FROM "InputDate" + INTERVAL ' . "'1 hours'" . ') as jam,
+      //   EXTRACT(DAY FROM "InputDate" + INTERVAL ' . "'1 hours'" . ') as tgl,
+      //   EXTRACT(MONTH FROM "InputDate" + INTERVAL ' . "'1 hours'" . ') as bulan,
+      //   EXTRACT(YEAR FROM "InputDate" + INTERVAL ' . "'1 hours'" . ') as tahun from "Pi_Rejection" where
+      //   EXTRACT(YEAR FROM "InputDate" + INTERVAL ' . "'1 hours'" . ') = ' . $tahun . ' and
+      //   EXTRACT(MONTH FROM "InputDate" + INTERVAL ' . "'1 hours'" . ') = ' . $bulan . ' and
+      //   EXTRACT(DAY FROM "InputDate" + INTERVAL ' . "'1 hours'" . ') = ' . $tanggal . '
+      //   group by "RejectionType", jam, tgl, bulan, tahun) as t2 on "t1"."RejectionType" = "t2"."RejectionType" order by rejectbulantahun1 desc');
 
-      return $query;
+      $query3 = 
+         DB::select('
+            SELECT "NamaPart", "RejectionType", "tgl", "bulan", "tahun", "shift", COUNT(*) jumlah_shift_duplikat FROM 
+            ( 
+               SELECT "NamaPart", "RejectionType", 
+               EXTRACT(DAY   FROM "InputDate" + INTERVAL ' . "'1 hours'" . ') AS tgl,
+               EXTRACT(MONTH FROM "InputDate" + INTERVAL ' . "'1 hours'" . ') AS bulan,
+               EXTRACT(YEAR  FROM "InputDate" + INTERVAL ' . "'1 hours'" . ') AS tahun, 
+               "InputDate"::TIME waktu, 
+               (
+                  CASE 
+                     WHEN "InputDate"::TIME > ' . "'00:00:00'" . ' AND "InputDate"::TIME <= ' . "'12:00:00'" . ' THEN 1
+                     WHEN "InputDate"::TIME > ' . "'12:00:00'" . ' AND "InputDate"::TIME <= ' . "'17:00:00'" . ' THEN 2
+                     WHEN "InputDate"::TIME > ' . "'17:00:00'" . ' AND "InputDate"::TIME <= ' . "'24:00:00'" . ' THEN 3 
+                  END
+               ) shift FROM "Pi_Rejection"
+            ) a 
+            GROUP BY "NamaPart", "RejectionType", "tgl",  "bulan", "tahun", "shift" 
+            ORDER BY "NamaPart", "RejectionType", "tgl",  "bulan", "tahun", "shift"
+            DESC
+            LIMIT 50
+         ');
+
+      // $result = $this->generateRejectionPerShiftDayArray($query);
+
+      return $query3;
    }
 }

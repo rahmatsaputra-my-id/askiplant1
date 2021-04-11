@@ -20,7 +20,7 @@ function drawChart2a(result, monthsInYear) {
     }
   }
 
-  console.log(value_arr);
+  // console.log(value_arr);
 
   Highcharts.chart('chart2a', {
 
