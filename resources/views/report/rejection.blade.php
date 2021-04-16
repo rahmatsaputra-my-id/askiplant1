@@ -262,7 +262,6 @@
 				tanggal: tanggal
 			},
 			success: function(result) {
-				// var shiftsInDay = getShiftsInDay(tanggal, bulan, tahun)
 				var daysInMonth = getDaysInMonth(bulan, tahun)
 				drawChart1(result);
 				drawChart1a(result);
