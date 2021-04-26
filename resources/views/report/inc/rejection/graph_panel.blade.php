@@ -311,6 +311,15 @@ $year_start = $year-5;
                 </div>
               </div>
             </div>
+            <div class="col-6">
+              <div class="card mt-3 mb-3 shadow p-3 mb-5 bg-white rounded card-primary card-outline">
+                <div class="card-body">
+                  <figure class="highcharts-figure" style="width: 100%">
+                    <div id="chart1c"></div>
+                  </figure>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>

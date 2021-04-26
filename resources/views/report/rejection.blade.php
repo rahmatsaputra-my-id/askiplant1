@@ -43,6 +43,7 @@
 @include('report.inc.rejection.chart1')
 @include('report.inc.rejection.chart1a')
 @include('report.inc.rejection.chart1b')
+@include('report.inc.rejection.chart1c')
 @include('report.inc.rejection.chart2')
 @include('report.inc.rejection.chart2a')
 @include('report.inc.rejection.chart2b')
@@ -266,6 +267,7 @@
 				drawChart1(result);
 				drawChart1a(result);
 				drawChart1b(result, daysInMonth);
+				drawChart1c(result, daysInMonth);
 			}
 		});
 	}
